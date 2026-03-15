@@ -1,10 +1,18 @@
 <template>
-  <div>
-
-  </div>
+    <div class="container-main">
+        <MarchWeek2Components></MarchWeek2Components>
+    </div>
 </template>
 
-<script setup>
+<script>
+import MarchWeek2Components from "@/component/MarchWeek2Components.vue";
+
+export default {
+    name: "App",
+    components: {
+        MarchWeek2Components
+    }
+}
 </script>
 
 <style scoped>

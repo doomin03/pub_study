@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+$back-image-url: (
+    'back1': '@/assets/image/0314/back1.png',
+    'back2': '@/assets/image/0314/back2.png',
+    'back3': '@/assets/image/0314/back3.png',
+    'back4': '@/assets/image/0314/back4.png',
+    'back5': '@/assets/image/0314/back5.png',
+);
+
+$back-image-position: (
+    'back1': (top: -8px, left: -40px),
+    'back2': (top: 211px, right: -231px),
+    'back3': (left: 50%, transform-x: -50%),
+    'back4': (top: 100px, right: -612px),
+    'back5': (bottom: -183px, left: -21px),
+);
+
+$back-image-size: (
+    'back1': (width: 372px, height: 500px),
+    'back2': (width: 1115px, height: 807.7559204101562px),
+    'back3': (width: 1660px, height: 1000px),
+    'back4': (width: 1684px, height: 1684px),
+    'back5': (width: 411px, height: 411px),
+);
+
+@each $name, $url in $back-image-url {
+    $position-map: map-get($back-image-position, $name);
+    $size-map: map-get($back-image-size, $name);
+
+.#{$name} {
+    @include image-setting(
+            $url,
+            map-get($size-map, width),
+            map-get($size-map, height)
+    );
+
+    @include position-absolute(
+        $top: map-get($position-map, top),
+        $right: map-get($position-map, right),
+        $bottom: map-get($position-map, bottom),
+        $left: map-get($position-map, left),
+        $transform-x: map-get($position-map, transform-x),
+        $transform-y: map-get($position-map, transform-y)
+    );
+}
+}

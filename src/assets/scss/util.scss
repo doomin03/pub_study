@@ -1,0 +1,153 @@
+@charset "utf-8";
+
+@mixin image-cover {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+}
+
+@mixin image-contain {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+}
+
+@mixin image-setting(
+    $url,
+    $width,
+    $height,
+    $size: cover,
+    $repeat: no-repeat,
+    $position: center center
+) {
+    width: $width;
+    height: $height;
+    background-image: url(#{$url});
+    background-size: $size;
+    background-repeat: $repeat;
+    background-position: $position;
+}
+
+@mixin position-absolute(
+    $top: null,
+    $right: null,
+    $bottom: null,
+    $left: null,
+    $transform-x: null,
+    $transform-y: null
+) {
+    position: absolute;
+
+    @if $top != null {
+        top: $top;
+    }
+
+    @if $right != null {
+        right: $right;
+    }
+
+    @if $bottom != null {
+        bottom: $bottom;
+    }
+
+    @if $left != null {
+        left: $left;
+    }
+
+    @if $transform-x != null and $transform-y != null {
+        transform: translate($transform-x, $transform-y);
+    } @else if $transform-x != null {
+        transform: translateX($transform-x);
+    } @else if $transform-y != null {
+        transform: translateY($transform-y);
+    }
+}
+
+.p-absolute {
+    position: absolute;
+}
+
+.p-relative {
+    position: relative;
+}
+
+@for $i from 0 through 1000 {
+    .top#{$i} {
+        top: #{$i}px;
+    }
+
+    .right#{$i} {
+        right: #{$i}px;
+    }
+
+    .bottom#{$i} {
+        bottom: #{$i}px;
+    }
+
+    .left#{$i} {
+        left: #{$i}px;
+    }
+
+    .top-n#{$i} {
+        top: -#{$i}px;
+    }
+
+    .right-n#{$i} {
+        right: -#{$i}px;
+    }
+
+    .bottom-n#{$i} {
+        bottom: -#{$i}px;
+    }
+
+    .left-n#{$i} {
+        left: -#{$i}px;
+    }
+    .w#{$i} {
+        width: #{$i}px;
+    }
+
+    .h#{$i} {
+        height: #{$i}px;
+    }
+
+    .min-w#{$i} {
+        min-width: #{$i}px;
+    }
+
+    .min-h#{$i} {
+        min-height: #{$i}px;
+    }
+
+    .max-w#{$i} {
+        max-width: #{$i}px;
+    }
+
+    .max-h#{$i} {
+        max-height: #{$i}px;
+    }
+
+    .mt#{$i} {
+        margin-top: #{$i}px;
+    }
+}
+
+@for $i from 1 through 200 {
+    .fs#{$i} {
+        font-size: #{$i}px;
+    }
+
+    .lh#{$i} {
+        line-height: #{$i}px;
+    }
+}
+
+$font-weights: 100, 200, 300, 400, 500, 600, 700, 800, 900;
+
+@each $weight in $font-weights {
+    .fw#{$weight} {
+        font-weight: $weight;
+    }
+}
