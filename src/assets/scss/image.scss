@@ -18,7 +18,7 @@ $back-image-url: (
 $back-image-position: (
         'back1': (top: -8px, left: -40px),
         'back2': (top: 211px, right: -231px),
-        'back3': (left: 50%, transform-x: -50%),
+        'back3': (left: 50%, transform-x: -50%, top: 200px),
         'back4': (top: 100px, right: -612px),
         'back5': (bottom: -183px, left: -21px),
         'planet1': (top: 21px, left: 130px),
@@ -33,7 +33,7 @@ $back-image-position: (
 $back-image-size: (
         'back1': (width: 372px, height: 500px),
         'back2': (width: 1115px, height: 807.7559204101562px),
-        'back3': (width: 1660px, height: 1000px),
+        'back3': (width: 1660px, height: 818px),
         'back4': (width: 1684px, height: 1684px),
         'back5': (width: 411px, height: 411px),
         'planet1' : (width: 371px, height: 371px),
@@ -152,4 +152,8 @@ $back-image-size: (
                 $delay: .5s
         );
     }
+}
+
+.back3 {
+    @include image-cover;
 }
