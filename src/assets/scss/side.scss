@@ -1,0 +1,105 @@
+@charset "utf-8";
+
+$side-icons: (
+        'home': (
+                default: '@/assets/image/0314/side/iconHome.png',
+                active: '@/assets/image/0314/side/iconHomeActive.png',
+        ),
+        'about': (
+                default: '@/assets/image/0314/side/iconAbout.png',
+                active: '@/assets/image/0314/side/iconAboutActive.png',
+        ),
+        'work': (
+                default: '@/assets/image/0314/side/iconWork.png',
+                active: '@/assets/image/0314/side/iconWorkActive.png',
+        ),
+        'contact': (
+                default: '@/assets/image/0314/side/iconContact.png',
+                active: '@/assets/image/0314/side/iconContactActive.png',
+        ),
+);
+
+.side-bar {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    backdrop-filter: blur(20px);
+
+    box-shadow: 0px 39.87px 39.87px 0px #452A7C26;
+
+
+    width: 80px;
+    height: 700px;
+    background-color: #FFFFFF66;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .btn-wrap {
+        width: 100%;
+        height: 539px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 32px 0;
+
+        .side-btn {
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: block;
+            flex-shrink: 0;
+
+            &::after {
+                @include image-cover();
+            }
+        }
+
+        @each $name, $icons in $side-icons {
+            .side-btn.#{$name} {
+
+                z-index: 4;
+
+                &::after {
+                    content: '';
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    background-image: url("#{map-get($icons, default)}");
+                }
+
+                &.active {
+                    &::after {
+                        content: '';
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        background-image: url("#{map-get($icons, active)}");
+                    }
+
+                    position: relative;
+                    z-index: 2;
+
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        top: 50%;
+                        right: -18px;
+                        transform: translateY(-50%);
+                        width: 77px;
+                        height: 190px;
+                        z-index: -5;
+                        background-color: #706D8F;
+                        clip-path: path("M 77 0 L 77 190 C 63 164, 34 128, 20 108 Q 14 95, 20 82 C 34 62, 63 26, 77 0 Z");
+                    }
+                }
+            }
+        }
+    }
+}

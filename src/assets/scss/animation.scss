@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+@keyframes floatY {
+    0% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-20px);
+    }
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes float-reverse-Y {
+    0% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(20px);
+    }
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes float-y-reverse {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(20px);
+    }
+    100% {
+        transform: translateY(0);
+
+    }
+}
+
+@mixin motion-float(
+    $name: floatY,
+    $duration: 4s,
+    $timing: ease-in-out,
+    $delay: 0s,
+    $iteration: infinite,
+    $direction: normal,
+    $fill-mode: both,
+    $play-state: running
+) {
+    animation-name: $name;
+    animation-duration: $duration;
+    animation-timing-function: $timing;
+    animation-delay: $delay;
+    animation-iteration-count: $iteration;
+    animation-direction: $direction;
+    animation-fill-mode: $fill-mode;
+    animation-play-state: $play-state;
+    will-change: transform, opacity;
+}

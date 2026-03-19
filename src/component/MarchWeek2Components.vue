@@ -1,9 +1,23 @@
 <template>
     <div class="container-main">
-        <section class="section hero-section">
-            <Header/>
-            <div class="back1"></div>
-            <div class="back2"></div>
+        <section class="section hero-section" id="home">
+            <Header @move-section="scrollToSection"/>
+            <div class="planet-groups">
+                <div class="planet-wrap">
+                    <div class="planet1"></div>
+                    <div class="planet2"></div>
+                    <div class="planet3"></div>
+                </div>
+            </div>
+
+            <div class="planet-groups-right">
+                <div class="planet-wrap">
+                    <div class="planet4"></div>
+                    <div class="planet5"></div>
+                    <div class="planet6"></div>
+                </div>
+            </div>
+
 
             <div class="hero-content">
                 <div class="hero-title">
@@ -13,13 +27,13 @@
                 </div>
 
                 <div class="btn-wrap">
-                    <button class="hero-btn primary">Hire me</button>
+                    <button class="hero-btn primary" @click="scrollToSection('contact')">Hire me</button>
                     <button class="hero-btn secondary">Download CV</button>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="section-2">
+        <section class="section" id="about">
             <div class="about-me">
                 <div class="info-box">
                     <div class="info-text-box">
@@ -29,9 +43,9 @@
                             curently working with Design+Code. I’m passionate about creating digital experiences and
                             teaching design. My goal is to help beginners to grow their skills...<span> read more</span>
                         </div>
-
                     </div>
                 </div>
+
                 <div class="image-box-warp">
                     <div class="image-box"></div>
                 </div>
@@ -41,13 +55,12 @@
                         <div class="ellipse-glow"></div>
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <section class="section portfolio-section">
+        <section class="section portfolio-section" id="work">
             <div class="back3"></div>
-            <div class="work">
+            <div class="work-section">
                 <div class="work-title-box">My recent work</div>
 
                 <div class="work-card-wrapper">
@@ -56,7 +69,7 @@
                         <div class="card-text">Designs</div>
                     </div>
 
-                    <div class="work-card ui-designs ">
+                    <div class="work-card ui-designs">
                         <div class="card-img"></div>
                         <div class="card-text">UI Designs</div>
                     </div>
@@ -69,7 +82,7 @@
             </div>
         </section>
 
-        <section class="section contact-section">
+        <section class="section contact-section" id="contact">
             <div class="back4"></div>
             <div class="back5"></div>
 
@@ -103,8 +116,32 @@
             </div>
         </section>
 
-        <Footer/>
-        <div class="side-bar"></div>
+        <Footer @move-section="scrollToSection"/>
+
+        <div class="side-bar">
+            <div class="btn-wrap">
+                <div
+                    class="side-btn home"
+                    :class="{ active: activeSection === 'home' }"
+                    @click="scrollToSection('home')"
+                ></div>
+                <div
+                    class="side-btn about"
+                    :class="{ active: activeSection === 'about' }"
+                    @click="scrollToSection('about')"
+                ></div>
+                <div
+                    class="side-btn work"
+                    :class="{ active: activeSection === 'work' }"
+                    @click="scrollToSection('work')"
+                ></div>
+                <div
+                    class="side-btn contact"
+                    :class="{ active: activeSection === 'contact' }"
+                    @click="scrollToSection('contact')"
+                ></div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -118,8 +155,76 @@ export default {
         Header,
         Footer,
     },
+    data() {
+        return {
+            activeSection: "home",
+            isProgrammaticScrolling: false,
+            scrollEndTimer: null,
+            headerOffset: 100,
+        };
+    },
+    methods: {
+        scrollToSection(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (!target) return;
+
+            if (this.scrollEndTimer) {
+                clearTimeout(this.scrollEndTimer);
+                this.scrollEndTimer = null;
+            }
+
+            this.isProgrammaticScrolling = true;
+            this.activeSection = sectionId;
+
+            const targetTop =
+                target.getBoundingClientRect().top +
+                window.pageYOffset -
+                this.headerOffset;
+
+            window.scrollTo({
+                top: targetTop,
+                behavior: "smooth",
+            });
+
+            this.scrollEndTimer = setTimeout(() => {
+                this.isProgrammaticScrolling = false;
+                this.handleScroll();
+            }, 900);
+        },
+
+        handleScroll() {
+            if (this.isProgrammaticScrolling) return;
+
+            const sections = ["home", "about", "work", "contact"];
+            const checkLine = this.headerOffset + window.innerHeight / 3;
+
+            let currentSection = "home";
+
+            sections.forEach((id) => {
+                const section = document.getElementById(id);
+                if (!section) return;
+
+                const rect = section.getBoundingClientRect();
+
+                if (rect.top <= checkLine && rect.bottom >= checkLine) {
+                    currentSection = id;
+                }
+            });
+
+            this.activeSection = currentSection;
+        },
+    },
+    mounted() {
+        window.addEventListener("scroll", this.handleScroll, { passive: true });
+        this.handleScroll();
+    },
+    beforeUnmount() {
+        window.removeEventListener("scroll", this.handleScroll);
+
+        if (this.scrollEndTimer) {
+            clearTimeout(this.scrollEndTimer);
+        }
+    },
 };
 </script>
 
-<style scoped lang="scss">
-</style>
