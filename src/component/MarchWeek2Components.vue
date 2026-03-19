@@ -47,6 +47,26 @@
 
         <section class="section portfolio-section">
             <div class="back3"></div>
+            <div class="work">
+                <div class="work-title-box">My recent work</div>
+
+                <div class="work-card-wrapper">
+                    <div class="work-card designs small">
+                        <div class="card-img"></div>
+                        <div class="card-text">Designs</div>
+                    </div>
+
+                    <div class="work-card ui-designs ">
+                        <div class="card-img"></div>
+                        <div class="card-text">UI Designs</div>
+                    </div>
+
+                    <div class="work-card mockups small">
+                        <div class="card-img"></div>
+                        <div class="card-text">Mockups</div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="section contact-section">
