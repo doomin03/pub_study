@@ -1,16 +1,25 @@
 <template>
-    <div class="container-main">
-        <MarchWeek2Components></MarchWeek2Components>
-    </div>
+    <chart-default-component></chart-default-component>
+    <chart1-component></chart1-component>
+    <chart2-component></chart2-component>
+    <chart3-component></chart3-component>
 </template>
 
 <script>
-import MarchWeek2Components from "@/component/MarchWeek2Components.vue";
+
+import ChartDefaultComponent from "@/component/ChartDefaultComponent.vue";
+import Chart1Component from "@/component/Chart1Component.vue";
+import Chart2Component from "@/component/Chart2Component.vue";
+import Chart3Component from "@/component/Chart3Component.vue";
+
 
 export default {
     name: "App",
     components: {
-        MarchWeek2Components
+        ChartDefaultComponent,
+        Chart1Component,
+        Chart2Component,
+        Chart3Component
     }
 }
 </script>
