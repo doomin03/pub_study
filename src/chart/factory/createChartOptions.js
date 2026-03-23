@@ -7,16 +7,12 @@ export function createChartOptions({
                                        dataList = [],
                                        ranges = [],
                                        title = '',
-                                       height = 400,
                                        customOptions = {}
                                    }) {
     const selectedStyle = chartStyleMap[styleType];
 
     if (!selectedStyle) {
         return {
-            chart: {
-                height
-            },
             title: {
                 text: `Unknown chart type: ${styleType}`
             },
@@ -28,14 +24,16 @@ export function createChartOptions({
         ? selectedStyle.xAxisBuilder({
             categories,
             ranges,
-            style: selectedStyle.xAxis
+            style: selectedStyle.xAxis,
+            format: selectedStyle.xAxisFormat
         })
         : {
             ...selectedStyle.xAxis,
             categories
         };
 
-    const baseOptions = {
+    return  {
+        legend: selectedStyle.legend,
         chart: {
             width: 900,
             height: 400,
@@ -49,18 +47,7 @@ export function createChartOptions({
         lang: {
             locale: 'ko-KR'
         },
-        plotOptions: {
-            // legend: {
-            //
-            // },
-            column: {
-                stacking: 'normal',
-                borderRadius: 3,
-                // 하나의 컬럼에서 데이터간에 간격 조정
-                pointPadding: 0.05,
-                groupPadding: 0.1,
-            }
-        },
+        plotOptions: selectedStyle.plotOptions,
         title: {
             text: title || null
         },
@@ -73,6 +60,4 @@ export function createChartOptions({
         series: buildSeries(selectedStyle.series, dataList),
         ...customOptions
     };
-
-    return baseOptions;
 }

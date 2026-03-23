@@ -1,4 +1,4 @@
-
+import '@/chart/xAxis/format.js'
 
 export const defaultXAxis = {
     categories: [],
@@ -7,7 +7,7 @@ export const defaultXAxis = {
 };
 
 export function findRangeIndex(categories = [], range = {}) {
-    const { startKey, endKey } = range;
+    const {startKey, endKey} = range;
 
     const startIndex = categories.findIndex(item => item === startKey);
     const endIndex = categories.findIndex(item => item === endKey);
@@ -22,7 +22,7 @@ export function findRangeIndex(categories = [], range = {}) {
     };
 }
 
-export function createPlotBandsByRange(categories = [], ranges = []) {
+export function createPlot(categories = [], ranges = []) {
     return ranges
         .map((range) => {
             const indexRange = findRangeIndex(categories, range);
@@ -44,17 +44,19 @@ export function createPlotBandsByRange(categories = [], ranges = []) {
 export function buildDepositXAxis({
                                       categories = [],
                                       ranges = [],
-                                      style = {}
+                                      style = {},
+                                      format = () => {
+                                      },
                                   } = {}) {
     return {
         ...defaultXAxis,
         ...style,
         categories,
-        plotBands: createPlotBandsByRange(categories, ranges),
+        plotBands: createPlot(categories, ranges),
         labels: {
             ...(defaultXAxis.labels ?? {}),
             ...(style.labels ?? {}),
-            formatter: depositFormatter
+            formatter: format
         }
     };
 }

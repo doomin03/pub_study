@@ -29,10 +29,6 @@ export default {
             type: String,
             default: ''
         },
-        height: {
-            type: Number,
-            default: 400
-        },
         customOptions: {
             type: Object,
             default: () => ({})
@@ -54,7 +50,6 @@ export default {
                 categories: this.categories,
                 dataList: this.dataList,
                 title: this.title,
-                height: this.height,
                 customOptions: this.customOptions
             });
         }
