@@ -14,7 +14,7 @@ export const depositSeries = [
     {
         type: 'column',
         name: '예급은행 기타 대출',
-        data: [-2.2, -1.9, -3.1, -0.8, -0.4, 1.1, -2.2, -1.3, -2.1, -2.0, -2.0, -2.9, -4.6, -2.4, -3.0, -0.5, -0.1, -1.2, -0.1, -0.1, -1.3, 1.0, -0.4, -2.0, -1.5, -2.7, -2.1, 0.6, 0.3, -0.3, -0.1, 1.1, -0.5, 0.3, 0.5, -1.1, -2.2, -0.2, -0.8, 1.1, 1.1, 1.1],
+        data: [],
         color: '#FFAE00',
         stack: 'deposit',
         states: {
@@ -35,6 +35,68 @@ export const depositSeries = [
             }
         }
     },
+    {
+        type: 'line',
+        name: '전체',
+        data: [],
+        color: '#FF5541',
+        lineWidth: 2,
+        marker: {
+            enabled: true,
+            symbol: 'circle',
+            radius: 3,
+            fillColor: '#ffffff',
+            lineColor: '#FF5541',
+            lineWidth: 2
+        },
+        states: {
+            hover: {
+                enabled: false
+            }
+        }
+    }
+]
+
+export const testSeries = [
+    {
+        type: 'column',
+        stack: 'testSeries',
+        name: '주거용 (좌축)',
+        data: [],
+        color: '#004884',
+        states: {
+            hover: {
+                enabled: false
+            }
+        }
+    },
+
+    {
+        type: 'column',
+        stack: 'testSeries',
+        name: '비주거용 (좌축)',
+        color: '#FFB937',
+        data: [],
+        states: {
+            hover: {
+                enabled: false
+            }
+        }
+    },
+
+    {
+        type: 'column',
+        stack: 'testSeries',
+        data: [],
+        name: '토목 (좌축)',
+        color: '#0093D3',
+        states: {
+            hover: {
+                enabled: false
+            }
+        }
+    },
+
     {
         type: 'line',
         name: '전체',

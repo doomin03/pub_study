@@ -5,7 +5,6 @@ export function createChartOptions({
                                        styleType = '',
                                        categories = [],
                                        dataList = [],
-                                       ranges = [],
                                        title = '',
                                        customOptions = {}
                                    }) {
@@ -20,17 +19,7 @@ export function createChartOptions({
         };
     }
 
-    const xAxis = selectedStyle.xAxisBuilder
-        ? selectedStyle.xAxisBuilder({
-            categories,
-            ranges,
-            style: selectedStyle.xAxis,
-            format: selectedStyle.xAxisFormat
-        })
-        : {
-            ...selectedStyle.xAxis,
-            categories
-        };
+    const xAxis = selectedStyle.xAxis(categories)
 
     return  {
         legend: selectedStyle.legend,
@@ -54,7 +43,7 @@ export function createChartOptions({
         credits: {
             enabled: false
         },
-        xAxis,
+        ...xAxis,
         yAxis: selectedStyle.yAxis,
         tooltip: selectedStyle.tooltip,
         series: buildSeries(selectedStyle.series, dataList),

@@ -1,62 +1,77 @@
-import '@/chart/xAxis/format.js'
 
-export const defaultXAxis = {
-    categories: [],
-    lineColor: '#000',
-    labels: {}
-};
 
-export function findRangeIndex(categories = [], range = {}) {
-    const {startKey, endKey} = range;
 
-    const startIndex = categories.findIndex(item => item === startKey);
-    const endIndex = categories.findIndex(item => item === endKey);
-
-    if (startIndex === -1 || endIndex === -1) {
-        return null;
-    }
+export function depositXAxis(categories= [], ){
+    const startIndex = categories.findIndex(item => item.key === '2025M03');
+    const endIndex = categories.findIndex(item => item.key === '2025M12');
 
     return {
-        startIndex,
-        endIndex
+        xAxis: {
+            categories: categories,
+            plotBands: [
+                {
+                    from: startIndex + 0.5,
+                    to: endIndex + 0.5,
+                    color: 'rgba(180, 210, 235, 0.35)',
+                    zIndex: 0
+                }
+            ],
+            lineColor: '#000',
+            labels: {
+                formatter: function () {
+                    const category = this.axis.categories?.[this.pos];
+
+                    if (!category) {
+                        return '';
+                    }
+
+                    const parts = category.split('M');
+                    const year = parts[0];
+                    const month = parts[1];
+
+                    if (month === '01') {
+                        return `${year.slice(2)}.1`;
+                    }
+
+                    if (month === '07') {
+                        return '7';
+                    }
+
+                    return '';
+                }
+            }
+        }
     };
 }
 
-export function createPlot(categories = [], ranges = []) {
-    return ranges
-        .map((range) => {
-            const indexRange = findRangeIndex(categories, range);
-
-            if (!indexRange) {
-                return null;
-            }
-
-            return {
-                from: indexRange.startIndex - 0.5,
-                to: indexRange.endIndex + 0.5,
-                color: range.color ?? 'rgba(180, 210, 235, 0.35)',
-                zIndex: range.zIndex ?? 0
-            };
-        })
-        .filter(Boolean);
-}
-
-export function buildDepositXAxis({
-                                      categories = [],
-                                      ranges = [],
-                                      style = {},
-                                      format = () => {
-                                      },
-                                  } = {}) {
+export function testXAxis(categories= [], ){
+    const startIndex = categories.findIndex(item => item === '25.1');
     return {
-        ...defaultXAxis,
-        ...style,
-        categories,
-        plotBands: createPlot(categories, ranges),
-        labels: {
-            ...(defaultXAxis.labels ?? {}),
-            ...(style.labels ?? {}),
-            formatter: format
+        xAxis: {
+            categories: categories,
+            plotLines: [
+                {
+                    value: startIndex - 0.5, // 25.1 앞 경계선
+                    color: '#000',
+                    width: 1,
+                    dashStyle: 'ShortDash',
+                    zIndex: 6,
+                }
+            ],
+            labels: {
+                formatter: function () {
+                    const category = this.axis.categories?.[this.pos];
+                    if (!category) return '';
+
+                    const [year, month] = category.split('.');
+
+                    if (month === '1') {
+                        return `${year}.1`;
+                    }
+
+                    return month;
+                }
+            }
         }
     };
 }
