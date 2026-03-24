@@ -8,7 +8,6 @@
         style-type="deposit"
         :categories="categories"
         :data-list="dataList"
-        :ranges="ranges"
         :height="400"
     ></chart-view-component>
 
@@ -16,9 +15,27 @@
         style-type="test"
         :categories="chart2Categories"
         :data-list="chart2DataList"
-        :ranges="chart2Ranges"
-        :height="400"
-    ></chart-view-component>
+        :custom-options="{
+        annotations: [{
+            labels: [{
+                point: {
+                    xAxis: 0,
+                    yAxis: 0,
+                    x: 1,
+                    y: 0
+                },
+                text: '테스트 문구',
+                backgroundColor: 'transparent',
+                borderWidth: 0,
+                style: {
+                    color: '#F04B3A',
+                    fontSize: '20px',
+                    fontWeight: '700'
+                }
+            }]
+        }]
+    }"
+    />
 </template>
 
 <script>
@@ -79,8 +96,8 @@ export default {
             chart2Categories: ['24.1', '24.2', '24.3', '24.4', '25.1', '25.2', '25.3', '25.4'],
 
             chart2DataList: [
-                [-0.4, -2.0, -3.0,-2.5, -7.5],
-                [0.0, -0.9, -3.5, -1.9,-3.5],
+                [-0.4, -2.0, -3.0, -2.5, -7.5],
+                [0.0, -0.9, -3.5, -1.9, -3.5],
                 [2.0, 1.6, 0.3, -2.1, -2.3],
                 [1.6, -1.2, -6.2, -6.4, -13.3]
             ],

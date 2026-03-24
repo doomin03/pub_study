@@ -5,7 +5,8 @@
 <script>
 import Highcharts from 'highcharts';
 import { createChartOptions } from '@/chart/factory/createChartOptions';
-
+import AnnotationsModule from 'highcharts/modules/annotations';
+// AnnotationsModule(Highcharts);
 export default {
     name: "ChartViewComponent",
     props: {
